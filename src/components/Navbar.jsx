@@ -75,12 +75,12 @@ const Navbar = () => {
 
       {/* Mobile Navigation with Slide-in Animation */}
       <div
-        className={`${
-          isMenuOpen
-            ? "transform translate-x-0 transition-all duration-500 ease-in-out"
-            : "transform translate-x-full transition-all duration-500 ease-in-out"
-        } absolute top-0 right-0 w-64 bg-white shadow-md md:hidden z-40`}
+        className={`${isMenuOpen
+            ? "transform translate-x-0 transition-all duration-500 ease-in-out h-auto"
+            : "transform translate-x-full transition-all duration-500 ease-in-out h-0 overflow-hidden"
+          } absolute top-0 right-0 w-64 bg-white shadow-md md:hidden z-40`}
       >
+
         {/* Close Button */}
         <button
           onClick={closeMenu}
@@ -121,6 +121,7 @@ const Navbar = () => {
             <span className="absolute -bottom-1 left-0 w-0 h-1 bg-red-400 transition-all duration-300 group-hover:w-full"></span>
           </li>
         </ul>
+
         {/* Login Button Inside Hamburger for Mobile */}
         <div className="p-6">
           <button className="bg-red-400 text-white px-4 py-2 rounded-full w-full">
