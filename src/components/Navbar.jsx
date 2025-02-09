@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to track if the menu is open
@@ -7,8 +7,11 @@ const Navbar = () => {
   // Toggle the mobile menu visibility
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  // Close the mobile menu
+  const closeMenu = () => setIsMenuOpen(false);
+
   return (
-    <nav className="flex justify-between items-center p-4 lg:px-36 bg-white shadow-md relative z-50">
+    <nav className="flex justify-between items-center p-4 lg:px-36 bg-white shadow-md">
       {/* Logo */}
       <Link to="/" className="text-2xl lg:text-4xl font-bold">
         LOGO
@@ -34,9 +37,14 @@ const Navbar = () => {
         </li>
       </ul>
 
+      {/* Login Button on Desktop */}
+      <button className="bg-red-400 text-white px-4 py-2 lg:px-8 rounded-full hidden lg:block">
+        Login
+      </button>
+
       {/* Mobile Menu Toggle (Hamburger Icon) */}
       <button
-        className="block md:hidden text-gray-700 absolute right-4"
+        className="block md:hidden text-gray-700"
         onClick={toggleMenu}
         aria-label="Toggle menu"
       >
@@ -65,18 +73,18 @@ const Navbar = () => {
         </svg>
       </button>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation with Slide-in Animation */}
       <div
         className={`${
           isMenuOpen
-            ? "transform translate-x-0 transition-all duration-500"
-            : "transform translate-x-full transition-all duration-500"
+            ? "transform translate-x-0 transition-all duration-500 ease-in-out"
+            : "transform translate-x-full transition-all duration-500 ease-in-out"
         } absolute top-0 right-0 w-64 bg-white shadow-md md:hidden z-40`}
       >
         {/* Close Button */}
         <button
+          onClick={closeMenu}
           className="absolute top-4 right-4 text-gray-700"
-          onClick={toggleMenu}
           aria-label="Close menu"
         >
           <svg
@@ -94,28 +102,31 @@ const Navbar = () => {
             />
           </svg>
         </button>
+
         <ul className="flex flex-col items-center gap-6 p-6 text-gray-700">
           <li className="relative cursor-pointer group">
-            <Link to="/festival">Festival</Link>
+            <Link to="/festival" onClick={closeMenu}>Festival</Link>
             <span className="absolute -bottom-1 left-0 w-0 h-1 bg-red-400 transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li className="relative cursor-pointer group">
-            <Link to="/poster">Poster</Link>
+            <Link to="/poster" onClick={closeMenu}>Poster</Link>
             <span className="absolute -bottom-1 left-0 w-0 h-1 bg-red-400 transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li className="relative cursor-pointer group">
-            <Link to="/stickers">Stickers</Link>
+            <Link to="/stickers" onClick={closeMenu}>Stickers</Link>
             <span className="absolute -bottom-1 left-0 w-0 h-1 bg-red-400 transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li className="relative cursor-pointer group">
-            <Link to="/clip-meme">Clip & Meme</Link>
+            <Link to="/clip-meme" onClick={closeMenu}>Clip & Meme</Link>
             <span className="absolute -bottom-1 left-0 w-0 h-1 bg-red-400 transition-all duration-300 group-hover:w-full"></span>
           </li>
-          {/* Login Button Inside Hamburger */}
-          <button className="bg-red-400 text-white px-4 py-2 lg:px-8 rounded-full w-full">
+        </ul>
+        {/* Login Button Inside Hamburger for Mobile */}
+        <div className="p-6">
+          <button className="bg-red-400 text-white px-4 py-2 rounded-full w-full">
             Login
           </button>
-        </ul>
+        </div>
       </div>
     </nav>
   );
